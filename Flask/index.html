@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chat Bot, Chatbot, Bot, Conversational Agent, Artificial Intelligence, AI, Natural Language Processing, NLP, Machine Learning, Deep Learning, Virtual Assistant, Customer Service Bot, Personal Assistant Bot">
+    content="width=device-width, initial-scale=1.0", user-scalabel=no, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js" integrity="sha512-8BHxHDLsOHx+flIrQ0DrZcea7MkHqRU5GbTHmbdzMRnAaoCIkZ97PqZcXJkKZckMMhqfoeaJE+DNUVuyoQsO3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-MXe5EK5gyK+fbhwQy/dukwz9fw71HZcsM4KsyDBDTvMyjymkiO0M5qqU0lF4vqLI4VnKf1+DIKf1GM6RFkO8PA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <title>Chat Bot</title>
+</head>
+<body>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var socket = io('localhost=5000')
+      socket.on("connect", function(){
+        console.log("conectou")
+      });
+
+      socket.on("message", function(data){
+        console.log("Enviou mensagem");
+        $("#Lista_mensagens").append($('<p>').text(data));
+      });
+
+      $("#botao").on('click', function(){
+        console.log("clicou botao");
+        socket.send($('#usuario').val() + ": " + $('#mensagem').val());
+        $('#mensagem').val('');
+      });
+    })      
+  </script>
+
+  <div id="lista_mensagens">
+
+  </div>
+  <input type="text" id="usuario" placeholder="Usuario">
+  <input type="text" id="mesagem" placeholder="Mensagem">
+  <button id="botao">Enviar</button>
+
+</body>
+</html>
